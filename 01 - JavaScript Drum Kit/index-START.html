@@ -57,9 +57,17 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
-
-</script>
+  <script>
+    window.addEventListener('keydown', function (e) {
+      var pressed_key = document.querySelector('div[data-key="' + e.keyCode + '"]');
+      pressed_key.classList.add("playing");
+      var audio = document.querySelector('audio[data-key="' + e.keyCode + '"]');
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+      setTimeout(function() { pressed_key.classList.remove("playing"); }, 150);
+    });
+  </script>
 
 
 </body>
