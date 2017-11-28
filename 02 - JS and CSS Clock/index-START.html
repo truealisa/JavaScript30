@@ -62,13 +62,35 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s cubic-bezier(0,2,1,1);
     }
 
   </style>
 
   <script>
+    setInterval(function() {
+        var hours = new Date().getHours();
+        var minutes = new Date().getMinutes();
+        var seconds = new Date().getSeconds();
 
+        if (seconds == 0) {
+            for (i=0; i<document.querySelectorAll('.hand').length; i++) {
+                document.querySelectorAll('.hand')[i].style.transition = 'none';
+            }
+        }
+        if (seconds == 1) {
+            for (i=0; i<document.querySelectorAll('.hand').length; i++) {
+                document.querySelectorAll('.hand')[i].style.transition = 'all 0.05s cubic-bezier(0,2,1,1)';
+            }
+        }
 
+        document.querySelector('.hour-hand').style.transform = 'rotate(' + (90 + (hours*30) + (minutes/2)) + 'deg)';
+        document.querySelector('.min-hand').style.transform = 'rotate(' + (90 + (minutes*6) + (seconds/10)) + 'deg)';
+        document.querySelector('.second-hand').style.transform = 'rotate(' + (90 + seconds*6) + 'deg)';
+
+    }, 1000);
   </script>
 </body>
 </html>
