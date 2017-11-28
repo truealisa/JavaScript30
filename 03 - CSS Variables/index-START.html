@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta content="https://s3.amazonaws.com/js30-cdn/small2.jpg" property="og:image">
   <title>Scoped CSS Variables and JS</title>
 </head>
 <body>
@@ -21,30 +22,52 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+  :root {
+    --spacing: 10px;
+    --blur: 10px;
+    --base: #ffc600;
+  }
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+  img {
+    border-style: solid;
+    border-color: var(--base);
+    border-width: var(--spacing);
+    filter: blur(var(--blur));
+  }
 
-    body {
-      text-align: center;
-      background: #193549;
-      color: white;
-      font-family: 'helvetica neue', sans-serif;
-      font-weight: 100;
-      font-size: 50px;
-    }
+  .hl {
+    color: var(--base);
+  }
 
-    .controls {
-      margin-bottom: 50px;
-    }
+  /* misc styles, nothing to do with CSS variables */
 
-    input {
-      width:100px;
-    }
+  body {
+    text-align: center;
+    background: #193549;
+    color: white;
+    font-family: 'helvetica neue', sans-serif;
+    font-weight: 100;
+    font-size: 50px;
+  }
+
+  .controls {
+    margin-bottom: 50px;
+  }
+
+  input {
+    width:100px;
+  }
   </style>
 
   <script>
+    var inputControls = document.querySelectorAll('input');
+
+    function handleChanges(input) {
+      var suffix = input.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${input.name}`, input.value + suffix);
+    };
+
+    inputControls.forEach(inputControl => inputControl.oninput = () => handleChanges(inputControl));
   </script>
 
 </body>
