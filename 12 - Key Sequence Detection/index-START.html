@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Key Detection</title>
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
+
 <body>
-<script>
-</script>
+  <script>
+
+    const myCode = 'alisa';
+    const myCodeArr = myCode.split('');
+    const userSequence = [];
+
+    window.addEventListener('keydown', function (e) {
+      userSequence.push(e.key);
+      if (userSequence.length === myCodeArr.length && userSequence.every((v, i) => v === myCodeArr[i])) {
+        console.log("Hi, spy! :)");
+      }
+      if (userSequence.length > myCodeArr.length) {
+        userSequence.shift();
+        if (userSequence.every((v, i) => v === myCode[i])) {
+          console.log("Hi, spy! :)");
+        }
+      }
+    });
+
+  </script>
 </body>
+
 </html>

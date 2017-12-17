@@ -43,20 +43,19 @@
   </div>
 
   <script>
-    function debounce(func, wait = 20, immediate = true) {
-      var timeout;
-      return function() {
-        var context = this, args = arguments;
-        var later = function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
+
+    function isScrolledIntoView(el) {
+      var rect = el.getBoundingClientRect();
+      var elemTop = rect.top;
+      var elemBottom = rect.bottom;
+      var isVisible = elemTop < window.innerHeight && elemBottom >= 0;
+      return isVisible;
     }
+
+    const images = document.querySelectorAll(".slide-in");
+    window.onscroll = function() {
+      images.forEach(image => isScrolledIntoView(image) ? image.classList.add("active") : image.classList.remove("active"));
+    };
 
   </script>
 
